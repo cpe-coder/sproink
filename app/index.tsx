@@ -13,8 +13,8 @@ export default function Index() {
 	});
 	return (
 		<View className="bg-white flex-1 items-center justify-center">
-			<Text className="text-blue-600">
-				Edit app/index.tsx to edit this screen.
+			<Text className="text-slate-700 font-bold text-2xl">
+				Welcome to Sprinkler
 			</Text>
 		</View>
 	);
