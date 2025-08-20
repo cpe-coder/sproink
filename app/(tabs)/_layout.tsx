@@ -1,12 +1,25 @@
+import { Settings } from "@/components";
+import { Stack } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
 
-const TabsLayout = () => {
+export default function TabLayout() {
 	return (
-		<View>
-			<Text>TabsLayout</Text>
-		</View>
+		<>
+			<Stack>
+				<Stack.Screen
+					name="Home"
+					options={{
+						title: "Home",
+						headerStyle: {
+							backgroundColor: "#64748b",
+						},
+						headerRight: () => {
+							return <Settings />;
+						},
+						headerTintColor: "white",
+					}}
+				/>
+			</Stack>
+		</>
 	);
-};
-
-export default TabsLayout;
+}

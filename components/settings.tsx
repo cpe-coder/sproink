@@ -1,7 +1,6 @@
 import { icon } from "@/constant/icon";
 import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import {
 	launchImageLibraryAsync,
 	useMediaLibraryPermissions,
@@ -75,11 +74,11 @@ const Settings = () => {
 						/>
 
 						<Text className="text-text py-5 font-bold text-2xl">
-							Ripe Sensei
+							Sprinkler User
 						</Text>
 					</View>
 					<View className="py-2">
-						<Pressable className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300">
+						{/* <Pressable className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300">
 							<View className="bg-secondText rounded-full p-3">
 								<MaterialIcons
 									name="alternate-email"
@@ -87,13 +86,13 @@ const Settings = () => {
 									color="#334155"
 								/>
 							</View>
-							{/* <View>
+							<View>
 								<Text className=" text-lg text-slate-700">Email Account</Text>
 								<Text className="text-slate-500 text-xs">
 									sample
 								</Text>
-							</View> */}
-						</Pressable>
+							</View>
+						</Pressable> */}
 						<Pressable
 							onPress={() => chooseFromLibrary()}
 							className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300"
