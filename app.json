@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "sprinkler",
-    "slug": "sprinkler",
+    "name": "sproink",
+    "slug": "sproink",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "sprinkler",
+    "scheme": "sproink",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -17,7 +17,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.cpecoder.sprinkler"
+      "package": "com.cpecoder.sproink"
     },
     "web": {
       "bundler": "metro",
@@ -43,8 +43,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "51bb4c9e-88bd-4669-891e-0833b7e43c6b"
+        "projectId": "19b2d985-435d-4d08-81d0-eee277b901f0"
       }
-    }
+    },
+    "owner": "cpecoder"
   }
 }
