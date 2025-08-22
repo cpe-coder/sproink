@@ -74,7 +74,7 @@ const Settings = () => {
 						/>
 
 						<Text className="text-text py-5 font-bold text-2xl">
-							Sprinkler User
+							Sproink User
 						</Text>
 					</View>
 					<View className="py-2">
