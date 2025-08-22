@@ -1,6 +1,7 @@
+import { icon } from "@/constant/icon";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { Image, View } from "react-native";
 import "../global.css";
 
 export default function Index() {
@@ -13,9 +14,7 @@ export default function Index() {
 	});
 	return (
 		<View className="bg-white flex-1 items-center justify-center">
-			<Text className="text-slate-700 font-bold text-2xl">
-				Welcome to Sprinkler
-			</Text>
+			<Image className="w-40 h-40" source={icon.logo} />
 		</View>
 	);
 }
