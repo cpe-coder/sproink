@@ -5,6 +5,7 @@ import {
 	launchImageLibraryAsync,
 	useMediaLibraryPermissions,
 } from "expo-image-picker";
+import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import React from "react";
 import {
@@ -22,6 +23,7 @@ const Settings = () => {
 		useMediaLibraryPermissions();
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [refreshing, setRefreshing] = React.useState(false);
+	const router = useRouter();
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
@@ -46,6 +48,12 @@ const Settings = () => {
 			onRefresh();
 		}
 	};
+
+	const handlePress = async () => {
+		await SecureStore.deleteItemAsync("token");
+		router.push("/");
+	};
+
 	return (
 		<View className="flex">
 			<TouchableOpacity
@@ -104,6 +112,13 @@ const Settings = () => {
 								Change Profile Image
 							</Text>
 						</Pressable>
+					</View>
+					<View className="flex-1 justify-end bottom-20 items-center">
+						<TouchableOpacity onPress={handlePress} className="">
+							<Text className="text-center text-slate-700 font-medium">
+								Logout
+							</Text>
+						</TouchableOpacity>
 					</View>
 				</View>
 			</Modal>
