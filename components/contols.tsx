@@ -13,7 +13,7 @@ const Controls = () => {
 					<Text className="text-slate-50 font-medium">Pesticides</Text>
 				</TouchableOpacity>
 				<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
-					<Text className="text-slate-50 font-medium">Vitamins</Text>
+					<Text className="text-slate-50 font-medium">Fertilizer</Text>
 				</TouchableOpacity>
 			</View>
 			<Text className="font-medium text-slate-700 rounded-md">Monitor</Text>
