@@ -50,8 +50,6 @@ const Controls = () => {
 		} else if (timerSeconds === 0) {
 			setIsRunning(false);
 			if (intervalRef.current) clearInterval(intervalRef.current);
-			// You can trigger an alarm or notification here
-			alert("⏰ Timer finished!");
 		}
 		return () => {
 			if (intervalRef.current) clearInterval(intervalRef.current);
@@ -62,21 +60,6 @@ const Controls = () => {
 		<View className="p-2">
 			<Text className="font-medium text-slate-700">Controls</Text>
 			<View className=" py-2 w-28 items-center rounded-lg">
-				<TouchableOpacity
-					activeOpacity={0.7}
-					onPress={() => setShowPicker(true)}
-				>
-					<View>
-						<TouchableOpacity
-							activeOpacity={0.7}
-							onPress={() => setShowPicker(true)}
-						>
-							<View className="mt-3">
-								<Text className="text-slate-700 font-medium">Set Alarm 🔔</Text>
-							</View>
-						</TouchableOpacity>
-					</View>
-				</TouchableOpacity>
 				<TimerPickerModal
 					visible={showPicker}
 					setIsVisible={setShowPicker}
@@ -90,29 +73,39 @@ const Controls = () => {
 						setIsRunning(true);
 						setShowPicker(false);
 					}}
-					modalTitle="Set Alarm"
 					onCancel={() => setShowPicker(false)}
 					closeOnOverlayPress
 					use12HourPicker
 				/>
-				{isRunning && timerSeconds !== null && timerSeconds > 0 && (
-					<View className="mt-2">
-						<Text className="text-lg font-bold text-slate-700">
+			</View>
+			<View className=" px-4 bg-slate-300 py-5 rounded-md mb-6">
+				{isRunning && timerSeconds !== null && timerSeconds > 0 ? (
+					<View className="pb-2 items-center">
+						<Text
+							className={`text-lg font-bold  ${timerSeconds <= 10 ? "text-red-700" : "text-slate-700"}`}
+						>
 							{formatSeconds(timerSeconds)}
 						</Text>
 					</View>
+				) : (
+					<View className=" pb-2 items-center">
+						<Text className="text-lg font-bold text-slate-500">00:00:00</Text>
+					</View>
 				)}
-			</View>
-			<View className="flex flex-row justify-around w-full px-4 bg-slate-300 py-5 rounded-md mb-6">
-				<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
-					<Text className="text-slate-50 font-medium">Water</Text>
-				</TouchableOpacity>
-				<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
-					<Text className="text-slate-50 font-medium">Pesticides</Text>
-				</TouchableOpacity>
-				<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
-					<Text className="text-slate-50 font-medium">Fertilizer</Text>
-				</TouchableOpacity>
+				<View className="flex flex-row justify-around w-full">
+					<TouchableOpacity
+						onPress={() => setShowPicker(true)}
+						className="bg-slate-700 py-2 w-28 items-center rounded-lg"
+					>
+						<Text className="text-slate-50 font-medium">Water</Text>
+					</TouchableOpacity>
+					<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
+						<Text className="text-slate-50 font-medium">Pesticides</Text>
+					</TouchableOpacity>
+					<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
+						<Text className="text-slate-50 font-medium">Fertilizer</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 			<Text className="font-medium text-slate-700 rounded-md">Monitor</Text>
 			<View className="items-center w-full px-4 bg-slate-300 py-4">
