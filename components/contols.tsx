@@ -23,30 +23,6 @@ const Controls = () => {
 	const pesticidesRef = useRef<ReturnType<typeof setInterval> | null>(null);
 	const fertilizerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-	const formatTime = ({
-		hours,
-		minutes,
-		seconds,
-	}: {
-		hours?: number;
-		minutes?: number;
-		seconds?: number;
-	}) => {
-		const timeParts = [];
-
-		if (hours !== undefined) {
-			timeParts.push(hours.toString().padStart(2, "0"));
-		}
-		if (minutes !== undefined) {
-			timeParts.push(minutes.toString().padStart(2, "0"));
-		}
-		if (seconds !== undefined) {
-			timeParts.push(seconds.toString().padStart(2, "0"));
-		}
-
-		return timeParts.join(":");
-	};
-
 	const formatSeconds = (totalSeconds: number) => {
 		const hours = Math.floor(totalSeconds / 3600);
 		const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -140,9 +116,13 @@ const Controls = () => {
 			(fertilizerRef && fertilizerSeconds !== null && fertilizerSeconds > 0) ? (
 				<Text
 					className={`text-3xl text-center font-bold  ${
-						(waterSeconds !== null && waterSeconds <= 10) ||
-						(pesticidesSeconds !== null && pesticidesSeconds <= 10) ||
-						(fertilizerSeconds !== null && fertilizerSeconds <= 10)
+						(waterRunning && waterSeconds !== null && waterSeconds <= 10) ||
+						(pesticidesRunning &&
+							pesticidesSeconds !== null &&
+							pesticidesSeconds <= 10) ||
+						(fertilizerRunning &&
+							fertilizerSeconds !== null &&
+							fertilizerSeconds <= 10)
 							? "text-red-700"
 							: "text-slate-700"
 					}`}
@@ -172,7 +152,7 @@ const Controls = () => {
 					}}
 				/>
 			</View>
-			<View className="flex flex-row justify-around w-full px-4 bg-slate-300 py-5 rounded-md mb-6">
+			<View className="flex flex-row justify-around w-full px-4 bg-slate-300 py-5 rounded-md">
 				<TouchableOpacity
 					disabled={waterRunning || pesticidesRunning || fertilizerRunning}
 					onPress={() => setActiveTimer("water")}
@@ -207,6 +187,25 @@ const Controls = () => {
 					<Text className="text-slate-50 font-medium">Fertilizer</Text>
 				</TouchableOpacity>
 			</View>
+			<View className="flex items-center mb-6">
+				<Text className="text-lg text-red-400 italic">
+					* Only one timer can run at a time.
+				</Text>
+				<Text className="text-md text-slate-400 italic">
+					{waterRunning &&
+						waterSeconds !== null &&
+						waterSeconds > 0 &&
+						"Spraying water..."}
+					{pesticidesRef &&
+						pesticidesSeconds !== null &&
+						pesticidesSeconds > 0 &&
+						"Spraying pesticides..."}
+					{fertilizerRef &&
+						fertilizerSeconds !== null &&
+						fertilizerSeconds > 0 &&
+						"Spraying fertilizer..."}
+				</Text>
+			</View>
 			<Text className="font-medium text-slate-500 text-lg rounded-md">
 				Monitor
 			</Text>
@@ -219,6 +218,11 @@ const Controls = () => {
 					<Text className="font-medium text-base">Humidity</Text>
 					<Text className="font-bold text-4xl">30%</Text>
 				</View>
+			</View>
+			<View className="flex py-10 items-center">
+				<Text className="text-sm text-slate-400 italic mt-2">
+					Reminder: Don&apos;t close the app while a timer is running.
+				</Text>
 			</View>
 		</View>
 	);
