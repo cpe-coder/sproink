@@ -7,13 +7,21 @@ type TimerType = "water" | "pesticides" | "fertilizer";
 const Controls = () => {
 	const [activeTimer, setActiveTimer] = useState<TimerType | null>(null);
 
-	const [waterTimer, setWaterTimer] = useState(false);
-	const [pesticidesTimer, setPesticidesTimer] = useState(false);
-	const [fertilizerTimer, setFertilizerTimer] = useState(false);
-	const [alarmString, setAlarmString] = useState<string | null>(null);
-	const [timerSeconds, setTimerSeconds] = useState<number | null>(null);
-	const [isRunning, setIsRunning] = useState(false);
-	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const [waterSeconds, setWaterSeconds] = useState<number | null>(null);
+	const [pesticidesSeconds, setPesticidesSeconds] = useState<number | null>(
+		null
+	);
+	const [fertilizerSeconds, setFertilizerSeconds] = useState<number | null>(
+		null
+	);
+
+	const [waterRunning, setWaterRunning] = useState(false);
+	const [pesticidesRunning, setPesticidesRunning] = useState(false);
+	const [fertilizerRunning, setFertilizerRunning] = useState(false);
+
+	const waterRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const pesticidesRef = useRef<ReturnType<typeof setInterval> | null>(null);
+	const fertilizerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
 	const formatTime = ({
 		hours,
@@ -49,50 +57,115 @@ const Controls = () => {
 	};
 
 	useEffect(() => {
-		if (isRunning && timerSeconds !== null && timerSeconds > 0) {
-			intervalRef.current = setInterval(() => {
-				setTimerSeconds((prev) => (prev !== null ? prev - 1 : null));
+		if (waterRunning && waterSeconds !== null && waterSeconds > 0) {
+			waterRef.current = setInterval(() => {
+				setWaterSeconds((prev) => (prev !== null ? prev - 1 : null));
 			}, 1000);
-		} else if (timerSeconds === 0) {
-			setIsRunning(false);
-			if (intervalRef.current) clearInterval(intervalRef.current);
+		} else if (waterSeconds === 0) {
+			setWaterRunning(false);
+			if (waterRef.current) clearInterval(waterRef.current);
 		}
 		return () => {
-			if (intervalRef.current) clearInterval(intervalRef.current);
+			if (waterRef.current) clearInterval(waterRef.current);
 		};
-	}, [isRunning, timerSeconds]);
+	}, [waterRunning, waterSeconds]);
+
+	useEffect(() => {
+		if (
+			pesticidesRunning &&
+			pesticidesSeconds !== null &&
+			pesticidesSeconds > 0
+		) {
+			pesticidesRef.current = setInterval(() => {
+				setPesticidesSeconds((prev) => (prev !== null ? prev - 1 : null));
+			}, 1000);
+		} else if (pesticidesSeconds === 0) {
+			setPesticidesRunning(false);
+			if (pesticidesRef.current) clearInterval(pesticidesRef.current);
+		}
+		return () => {
+			if (pesticidesRef.current) clearInterval(pesticidesRef.current);
+		};
+	}, [pesticidesRunning, pesticidesSeconds]);
+
+	useEffect(() => {
+		if (
+			fertilizerRunning &&
+			fertilizerSeconds !== null &&
+			fertilizerSeconds > 0
+		) {
+			fertilizerRef.current = setInterval(() => {
+				setFertilizerSeconds((prev) => (prev !== null ? prev - 1 : null));
+			}, 1000);
+		} else if (fertilizerSeconds === 0) {
+			setFertilizerRunning(false);
+			if (fertilizerRef.current) clearInterval(fertilizerRef.current);
+		}
+		return () => {
+			if (fertilizerRef.current) clearInterval(fertilizerRef.current);
+		};
+	}, [fertilizerRunning, fertilizerSeconds]);
+
+	const handleConfirm = (pickedDuration: {
+		hours?: number;
+		minutes?: number;
+		seconds?: number;
+	}) => {
+		const totalSeconds =
+			(pickedDuration.hours || 0) * 3600 +
+			(pickedDuration.minutes || 0) * 60 +
+			(pickedDuration.seconds || 0);
+
+		if (activeTimer === "water") {
+			setWaterSeconds(totalSeconds);
+			setWaterRunning(true);
+		} else if (activeTimer === "pesticides") {
+			setPesticidesSeconds(totalSeconds);
+			setPesticidesRunning(true);
+		} else if (activeTimer === "fertilizer") {
+			setFertilizerSeconds(totalSeconds);
+			setFertilizerRunning(true);
+		}
+		setActiveTimer(null);
+	};
+
+	const handleCancel = () => {
+		setActiveTimer(null);
+	};
 
 	return (
 		<View>
-			{isRunning && timerSeconds !== null && timerSeconds > 0 ? (
+			{(waterRunning && waterSeconds !== null && waterSeconds > 0) ||
+			(pesticidesRef && pesticidesSeconds !== null && pesticidesSeconds > 0) ||
+			(fertilizerRef && fertilizerSeconds !== null && fertilizerSeconds > 0) ? (
 				<Text
-					className={`text-3xl text-center font-bold  ${timerSeconds <= 10 ? "text-red-700" : "text-slate-700"}`}
+					className={`text-3xl text-center font-bold  ${
+						(waterSeconds !== null && waterSeconds <= 10) ||
+						(pesticidesSeconds !== null && pesticidesSeconds <= 10) ||
+						(fertilizerSeconds !== null && fertilizerSeconds <= 10)
+							? "text-red-700"
+							: "text-slate-700"
+					}`}
 				>
-					{formatSeconds(timerSeconds)}
+					{formatSeconds(
+						waterSeconds || pesticidesSeconds || fertilizerSeconds || 0
+					)}
 				</Text>
 			) : (
 				<Text className="text-3xl text-center font-bold text-slate-500">
 					00:00:00
 				</Text>
 			)}
+
 			<Text className="font-medium text-lg text-slate-500">Controls</Text>
 			<View className="w-28 items-center rounded-lg">
 				<TimerPickerModal
-					visible={waterTimer || pesticidesTimer || fertilizerTimer}
-					setIsVisible={
-						setWaterTimer || setPesticidesTimer || setFertilizerTimer
-					}
-					onConfirm={(pickedDuration) => {
-						setAlarmString(formatTime(pickedDuration));
-						setWaterTimer(false);
-						setPesticidesTimer(false);
-						setFertilizerTimer(false);
+					visible={activeTimer !== null}
+					setIsVisible={(isVisible: boolean) => {
+						if (!isVisible) setActiveTimer(null);
 					}}
-					onCancel={() => {
-						setWaterTimer(false);
-						setPesticidesTimer(false);
-						setFertilizerTimer(false);
-					}}
+					onConfirm={handleConfirm}
+					onCancel={handleCancel}
 					closeOnOverlayPress
 					modalProps={{
 						overlayOpacity: 0.2,
@@ -101,20 +174,35 @@ const Controls = () => {
 			</View>
 			<View className="flex flex-row justify-around w-full px-4 bg-slate-300 py-5 rounded-md mb-6">
 				<TouchableOpacity
-					onPress={() => setWaterTimer(true)}
-					className="bg-slate-700 py-2 w-28 items-center rounded-lg"
+					disabled={waterRunning || pesticidesRunning || fertilizerRunning}
+					onPress={() => setActiveTimer("water")}
+					className={`bg-slate-700 py-2 w-28 items-center rounded-lg ${
+						waterRunning || pesticidesRunning || fertilizerRunning
+							? "opacity-50"
+							: ""
+					}`}
 				>
 					<Text className="text-slate-50 font-medium">Water</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setPesticidesTimer(true)}
-					className="bg-slate-700 py-2 w-28 items-center rounded-lg"
+					disabled={waterRunning || pesticidesRunning || fertilizerRunning}
+					onPress={() => setActiveTimer("pesticides")}
+					className={`bg-slate-700 py-2 w-28 items-center rounded-lg ${
+						waterRunning || pesticidesRunning || fertilizerRunning
+							? "opacity-50"
+							: ""
+					}`}
 				>
 					<Text className="text-slate-50 font-medium">Pesticides</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setFertilizerTimer(true)}
-					className="bg-slate-700 py-2 w-28 items-center rounded-lg"
+					disabled={waterRunning || pesticidesRunning || fertilizerRunning}
+					onPress={() => setActiveTimer("fertilizer")}
+					className={`bg-slate-700 py-2 w-28 items-center rounded-lg ${
+						waterRunning || pesticidesRunning || fertilizerRunning
+							? "opacity-50"
+							: ""
+					}`}
 				>
 					<Text className="text-slate-50 font-medium">Fertilizer</Text>
 				</TouchableOpacity>
@@ -122,9 +210,15 @@ const Controls = () => {
 			<Text className="font-medium text-slate-500 text-lg rounded-md">
 				Monitor
 			</Text>
-			<View className="items-center w-full px-4 bg-slate-300 py-4">
-				<Text className="font-medium text-base">Temperature</Text>
-				<Text className="font-bold text-4xl">20%</Text>
+			<View className=" flex flex-row justify-around items-center w-full px-4 bg-slate-300 py-4">
+				<View className="items-center">
+					<Text className="font-medium text-base">Temperature</Text>
+					<Text className="font-bold text-4xl">20%</Text>
+				</View>
+				<View className="items-center">
+					<Text className="font-medium text-base">Humidity</Text>
+					<Text className="font-bold text-4xl">30%</Text>
+				</View>
 			</View>
 		</View>
 	);
