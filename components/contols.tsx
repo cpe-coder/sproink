@@ -3,7 +3,9 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { TimerPickerModal } from "react-native-timer-picker";
 
 const Controls = () => {
-	const [showPicker, setShowPicker] = useState(false);
+	const [waterTimer, setWaterTimer] = useState(false);
+	const [pesticidesTimer, setPesticidesTimer] = useState(false);
+	const [fertilizerTimer, setFertilizerTimer] = useState(false);
 	const [alarmString, setAlarmString] = useState<string | null>(null);
 	const [timerSeconds, setTimerSeconds] = useState<number | null>(null);
 	const [isRunning, setIsRunning] = useState(false);
@@ -59,23 +61,27 @@ const Controls = () => {
 	return (
 		<View className="p-2">
 			<Text className="font-medium text-slate-700">Controls</Text>
-			<View className=" py-2 w-28 items-center rounded-lg">
+			<View className="w-28 items-center rounded-lg">
 				<TimerPickerModal
-					visible={showPicker}
-					setIsVisible={setShowPicker}
+					visible={waterTimer || pesticidesTimer || fertilizerTimer}
+					setIsVisible={
+						setWaterTimer || setPesticidesTimer || setFertilizerTimer
+					}
 					onConfirm={(pickedDuration) => {
-						const totalSeconds =
-							(pickedDuration.hours || 0) * 3600 +
-							(pickedDuration.minutes || 0) * 60 +
-							(pickedDuration.seconds || 0);
 						setAlarmString(formatTime(pickedDuration));
-						setTimerSeconds(totalSeconds);
-						setIsRunning(true);
-						setShowPicker(false);
+						setWaterTimer(false);
+						setPesticidesTimer(false);
+						setFertilizerTimer(false);
 					}}
-					onCancel={() => setShowPicker(false)}
+					onCancel={() => {
+						setWaterTimer(false);
+						setPesticidesTimer(false);
+						setFertilizerTimer(false);
+					}}
 					closeOnOverlayPress
-					use12HourPicker
+					modalProps={{
+						overlayOpacity: 0.2,
+					}}
 				/>
 			</View>
 			<View className=" px-4 bg-slate-300 py-5 rounded-md mb-6">
@@ -94,15 +100,21 @@ const Controls = () => {
 				)}
 				<View className="flex flex-row justify-around w-full">
 					<TouchableOpacity
-						onPress={() => setShowPicker(true)}
+						onPress={() => setWaterTimer(true)}
 						className="bg-slate-700 py-2 w-28 items-center rounded-lg"
 					>
 						<Text className="text-slate-50 font-medium">Water</Text>
 					</TouchableOpacity>
-					<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
+					<TouchableOpacity
+						onPress={() => setPesticidesTimer(true)}
+						className="bg-slate-700 py-2 w-28 items-center rounded-lg"
+					>
 						<Text className="text-slate-50 font-medium">Pesticides</Text>
 					</TouchableOpacity>
-					<TouchableOpacity className="bg-slate-700 py-2 w-28 items-center rounded-lg">
+					<TouchableOpacity
+						onPress={() => setFertilizerTimer(true)}
+						className="bg-slate-700 py-2 w-28 items-center rounded-lg"
+					>
 						<Text className="text-slate-50 font-medium">Fertilizer</Text>
 					</TouchableOpacity>
 				</View>
