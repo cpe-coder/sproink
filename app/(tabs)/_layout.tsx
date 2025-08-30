@@ -1,8 +1,26 @@
 import { Settings } from "@/components";
-import { Stack } from "expo-router";
+import { useAuth } from "@/context/auth-context";
+import { router, Stack } from "expo-router";
 import React from "react";
 
 export default function TabLayout() {
+	const { authState } = useAuth();
+
+	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+	React.useEffect(() => {
+		if (authState?.authenticated) {
+			setIsAuthenticated(true);
+			return;
+		}
+
+		setIsAuthenticated(false);
+	}, [authState]);
+
+	if (isAuthenticated) {
+		router.push("/sign-in");
+	}
+
 	return (
 		<>
 			<Stack>

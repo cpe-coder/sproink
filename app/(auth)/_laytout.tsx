@@ -1,20 +1,10 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { Slot } from "expo-router";
 import React from "react";
 
 const AuthLayout = () => {
 	return (
 		<>
-			<Stack>
-				<Stack.Screen
-					name="sign-in"
-					options={{
-						headerShown: false,
-					}}
-				/>
-			</Stack>
-
-			<StatusBar backgroundColor="#161622" style="light" />
+			<Slot screenOptions={{ headerShown: false }} />
 		</>
 	);
 };
