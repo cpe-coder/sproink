@@ -1,6 +1,6 @@
 import { Settings } from "@/components";
 import { useAuth } from "@/context/auth-context";
-import { router, Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import React from "react";
 
 export default function TabLayout() {
@@ -18,7 +18,7 @@ export default function TabLayout() {
 	}, [authState]);
 
 	if (isAuthenticated) {
-		router.push("/sign-in");
+		return <Redirect href={"/sign-in"} />;
 	}
 
 	return (
