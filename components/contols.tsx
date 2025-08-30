@@ -206,10 +206,8 @@ const Controls = () => {
 						"Spraying fertilizer..."}
 				</Text>
 			</View>
-			<Text className="font-medium text-slate-500 text-lg rounded-md">
-				Monitor
-			</Text>
-			<View className=" flex flex-row justify-around items-center w-full px-4 bg-slate-300 py-4">
+			<Text className="font-medium text-slate-500 text-lg">Monitor</Text>
+			<View className=" flex flex-row justify-around items-center rounded-md w-full px-4 bg-slate-300 py-4">
 				<View className="items-center">
 					<Text className="font-medium text-base">Temperature</Text>
 					<Text className="font-bold text-4xl">20%</Text>
