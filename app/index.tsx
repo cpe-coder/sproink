@@ -9,7 +9,7 @@ export default function Index() {
 
 	useEffect(() => {
 		setTimeout(() => {
-			router.push("/(tabs)/Home");
+			router.push("/Home");
 		}, 2000);
 	});
 	return (

@@ -17,7 +17,7 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = "TOKEN";
-export const API_URL = "https://sproink-api-request.vercel.app/";
+export const API_URL = "https://sproink-api-request.vercel.app";
 const AuthContext = createContext<AuthProps>({});
 
 export const useAuth = () => {
@@ -52,14 +52,10 @@ export const AuthProvider = ({ children }: any) => {
 	}, []);
 
 	useEffect(() => {
-		console.log(userImage.image);
 		const verifyToken = async () => {
 			const token = await SecureStore.getItemAsync(TOKEN_KEY);
-
 			const authorization = (axios.defaults.headers.common["Authorization"] =
 				`Bearer ${token}`);
-
-			console.log(authorization);
 
 			try {
 				await axios
@@ -112,9 +108,9 @@ export const AuthProvider = ({ children }: any) => {
 			token: result.data.token,
 			authenticated: true,
 		});
+		console.log("hello");
 		axios.defaults.headers.common["Authorization"] =
 			`Bearer ${result.data.token}`;
-
 		await SecureStore.setItemAsync(TOKEN_KEY, result.data.token);
 
 		return result;

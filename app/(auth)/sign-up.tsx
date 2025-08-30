@@ -104,7 +104,7 @@ const SignUp = () => {
 		<SafeAreaView className="bg-slate-50 h-full">
 			<ScrollView>
 				<View
-					className="w-full flex justify-center h-full px-4 my-6"
+					className="w-full flex justify-center h-full px-6 my-6"
 					style={{
 						minHeight: Dimensions.get("window").height - 100,
 					}}
@@ -116,7 +116,7 @@ const SignUp = () => {
 							className="w-[180px] h-[100px]"
 						/>
 
-						<Text className="text-2xl text-center text-slate-500 mt-10 font-bold">
+						<Text className="text-2xl text-center text-slate-500 font-bold">
 							Create an account
 						</Text>
 					</View>
@@ -125,7 +125,7 @@ const SignUp = () => {
 						title="Name"
 						value={form.name}
 						handleChangeText={(e) => setForm({ ...form, name: e })}
-						otherStyles="mt-10"
+						otherStyles="mt-5"
 					/>
 
 					<InputField
@@ -133,21 +133,21 @@ const SignUp = () => {
 						title="Email"
 						value={form.email}
 						handleChangeText={(e: any) => setForm({ ...form, email: e })}
-						otherStyles="mt-7"
+						otherStyles="mt-2"
 					/>
 					<InputField
 						placeholder=""
 						title="Password"
 						value={form.password}
 						handleChangeText={(e) => setForm({ ...form, password: e })}
-						otherStyles="mt-7"
+						otherStyles="mt-2"
 					/>
 					<InputField
 						placeholder=""
 						title="Confirm Password"
 						value={form.confirmPassword}
 						handleChangeText={(e) => setForm({ ...form, confirmPassword: e })}
-						otherStyles="mt-7 "
+						otherStyles="mt-2 "
 						borderStyle={confirmPasswordError ? "border-red-500" : ""}
 					/>
 					<Text
@@ -176,7 +176,7 @@ const SignUp = () => {
 						textStyles=""
 						title="Sign Up"
 						disable={disable || isSubmit}
-						containerStyles="mt-7 "
+						containerStyles="mt-5 "
 						submitting={isSubmit || isSubmit}
 					/>
 

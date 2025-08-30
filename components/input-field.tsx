@@ -49,7 +49,7 @@ const InputField: React.FC<FormFieldProps> = ({
 				{title === "Password" && (
 					<TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
 						<Image
-							source={!showPassword ? icon.eye : icon.eye}
+							source={!showPassword ? icon.eye : icon.eyeClose}
 							className="w-6 h-6"
 							resizeMode="contain"
 						/>

@@ -9,7 +9,7 @@ export default function TabLayout() {
 	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
 	React.useEffect(() => {
-		if (authState?.authenticated) {
+		if (!authState?.authenticated) {
 			setIsAuthenticated(true);
 			return;
 		}

@@ -1,12 +1,13 @@
 import { icon } from "@/constant/icon";
+import { useAuth } from "@/context/auth-context";
 import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
 	launchImageLibraryAsync,
 	useMediaLibraryPermissions,
 } from "expo-image-picker";
-import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import { AtSign } from "lucide-react-native";
 import React from "react";
 import {
 	Image,
@@ -21,9 +22,10 @@ const Settings = () => {
 	const [visible, setVisible] = React.useState(false);
 	const [mediaPermission, requestMediaPermission] =
 		useMediaLibraryPermissions();
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [refreshing, setRefreshing] = React.useState(false);
-	const router = useRouter();
+	const [, setRefreshing] = React.useState(false);
+	const { userImage, userData } = useAuth();
+
+	const { onLogout } = useAuth();
 
 	const onRefresh = React.useCallback(() => {
 		setRefreshing(true);
@@ -49,11 +51,6 @@ const Settings = () => {
 		}
 	};
 
-	const handlePress = async () => {
-		await SecureStore.deleteItemAsync("token");
-		router.push("/");
-	};
-
 	return (
 		<View className="flex">
 			<TouchableOpacity
@@ -77,30 +74,27 @@ const Settings = () => {
 					</View>
 					<View className="flex w-full justify-center items-center pt-5">
 						<Image
-							source={icon.user}
+							source={userImage ? { uri: userImage.image } : icon.user}
 							className="w-28 h-28 border border-slate-700 rounded-full"
 						/>
 
 						<Text className="text-text py-5 font-bold text-2xl">
-							Sproink User
+							{userData ? userData.name : "Sproink User"}
 						</Text>
 					</View>
+					<Pressable
+						onPress={() => console.log("clicked")}
+						className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300"
+					>
+						<View className="bg-red-500 rounded-full p-3">
+							<AtSign size={20} color={"white"} />
+						</View>
+						<View>
+							<Text className=" text-lg text-white">Email</Text>
+							<Text className="text-gray-300 text-xs">{userData?.email}</Text>
+						</View>
+					</Pressable>
 					<View className="py-2">
-						{/* <Pressable className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300">
-							<View className="bg-secondText rounded-full p-3">
-								<MaterialIcons
-									name="alternate-email"
-									size={24}
-									color="#334155"
-								/>
-							</View>
-							<View>
-								<Text className=" text-lg text-slate-700">Email Account</Text>
-								<Text className="text-slate-500 text-xs">
-									sample
-								</Text>
-							</View>
-						</Pressable> */}
 						<Pressable
 							onPress={() => chooseFromLibrary()}
 							className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300"
@@ -114,7 +108,7 @@ const Settings = () => {
 						</Pressable>
 					</View>
 					<View className="flex-1 justify-end bottom-20 items-center">
-						<TouchableOpacity onPress={handlePress} className="">
+						<TouchableOpacity onPress={onLogout} className="">
 							<Text className="text-center text-slate-700 font-medium">
 								Logout
 							</Text>

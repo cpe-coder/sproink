@@ -85,7 +85,7 @@ const SignIn = () => {
 							className="w-[180px] h-[100px]"
 						/>
 
-						<Text className="text-2xl text-center text-slate-500 mt-10 font-bold">
+						<Text className="text-2xl text-center text-slate-500  font-bold">
 							Welcome back!
 						</Text>
 					</View>
@@ -95,7 +95,7 @@ const SignIn = () => {
 						placeholder=""
 						value={form.email}
 						handleChangeText={(e: any) => setForm({ ...form, email: e })}
-						otherStyles="mt-7"
+						otherStyles="mt-5"
 					/>
 
 					<InputField
@@ -103,7 +103,7 @@ const SignIn = () => {
 						title="Password"
 						value={form.password}
 						handleChangeText={(e: any) => setForm({ ...form, password: e })}
-						otherStyles="mt-7"
+						otherStyles="mt-2"
 					/>
 					<Text
 						className={`text-lg text-red-500 font-semibold text-center py-1 px-4 ${
@@ -126,7 +126,7 @@ const SignIn = () => {
 						textStyles=""
 						handlePress={handleLogin}
 						submitting={isSubmit || isSubmit}
-						containerStyles="mt-7"
+						containerStyles="mt-5"
 						disable={disable || isSubmit}
 					/>
 
