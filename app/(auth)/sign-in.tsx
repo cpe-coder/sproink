@@ -86,7 +86,7 @@ const SignIn = () => {
 						/>
 
 						<Text className="text-2xl text-center text-white mt-10 font-bold">
-							adsfadfs
+							Welcome back!
 						</Text>
 					</View>
 

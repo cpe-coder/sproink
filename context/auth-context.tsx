@@ -17,8 +17,7 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = "TOKEN";
-// export const API_URL = "https://multicare-server.vercel.app";
-export const API_URL = "http://localhost:3000";
+export const API_URL = "https://sproink-api-request.vercel.app/";
 const AuthContext = createContext<AuthProps>({});
 
 export const useAuth = () => {
@@ -59,6 +58,8 @@ export const AuthProvider = ({ children }: any) => {
 
 			const authorization = (axios.defaults.headers.common["Authorization"] =
 				`Bearer ${token}`);
+
+			console.log(authorization);
 
 			try {
 				await axios
