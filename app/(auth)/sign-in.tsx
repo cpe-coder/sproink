@@ -70,7 +70,7 @@ const SignIn = () => {
 	};
 
 	return (
-		<SafeAreaView className="bg-primary h-full">
+		<SafeAreaView className="bg-slate-50 h-full">
 			<ScrollView>
 				<View
 					className="w-full flex justify-center h-full px-4 my-6"
@@ -85,7 +85,7 @@ const SignIn = () => {
 							className="w-[180px] h-[100px]"
 						/>
 
-						<Text className="text-2xl text-center text-white mt-10 font-bold">
+						<Text className="text-2xl text-center text-slate-500 mt-10 font-bold">
 							Welcome back!
 						</Text>
 					</View>
@@ -106,7 +106,7 @@ const SignIn = () => {
 						otherStyles="mt-7"
 					/>
 					<Text
-						className={`text-lg text-secondary font-semibold text-center py-1 px-4 ${
+						className={`text-lg text-red-500 font-semibold text-center py-1 px-4 ${
 							errorMessage ? "block" : "hidden"
 						}`}
 					>
@@ -131,11 +131,11 @@ const SignIn = () => {
 					/>
 
 					<View className="flex justify-center pt-5 flex-row gap-2">
-						<Text className="text-lg text-gray-100 font-pregular">
+						<Text className="text-lg text-slate-300 font-pregular">
 							don&apos;t have an account?
 						</Text>
 						<TouchableOpacity onPress={handleRoute}>
-							<Text className="text-lg font-psemibold text-secondary">
+							<Text className="text-lg font-psemibold text-slate-500">
 								Sign Up
 							</Text>
 						</TouchableOpacity>

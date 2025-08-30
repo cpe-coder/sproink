@@ -101,7 +101,7 @@ const SignUp = () => {
 	};
 
 	return (
-		<SafeAreaView className="bg-primary h-full">
+		<SafeAreaView className="bg-slate-50 h-full">
 			<ScrollView>
 				<View
 					className="w-full flex justify-center h-full px-4 my-6"
@@ -116,7 +116,7 @@ const SignUp = () => {
 							className="w-[180px] h-[100px]"
 						/>
 
-						<Text className="text-2xl text-center text-white mt-10 font-bold">
+						<Text className="text-2xl text-center text-slate-500 mt-10 font-bold">
 							Create an account
 						</Text>
 					</View>
@@ -151,14 +151,14 @@ const SignUp = () => {
 						borderStyle={confirmPasswordError ? "border-red-500" : ""}
 					/>
 					<Text
-						className={`text-lg text-secondary font-semibold text-center py-1 px-4 ${
+						className={`text-lg text-red-500 font-semibold text-center py-1 px-4 ${
 							errorMessage ? "block" : "hidden"
 						}`}
 					>
 						{errorMessage}
 					</Text>
 					<Text
-						className={`text-lg text-secondary font-semibold text-center py-1 ${
+						className={`text-lg text-red-500 font-semibold text-center py-1 ${
 							confirmPasswordError ? "block" : "hidden"
 						}`}
 					>
@@ -181,11 +181,11 @@ const SignUp = () => {
 					/>
 
 					<View className="flex justify-center pt-5 flex-row gap-2">
-						<Text className="text-lg text-gray-100 font-pregular">
+						<Text className="text-lg text-slate-300 font-pregular">
 							Don&apos;t have an account?
 						</Text>
 						<Pressable onPress={handleRoute}>
-							<Text className="text-lg font-psemibold text-secondary">
+							<Text className="text-lg font-psemibold text-slate-500">
 								Sign In
 							</Text>
 						</Pressable>

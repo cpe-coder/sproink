@@ -26,15 +26,15 @@ const InputField: React.FC<FormFieldProps> = ({
 
 	return (
 		<View className={`space-y-2 ${otherStyles}`}>
-			<Text className="text-base text-gray-100  mb-2 font-pmedium">
+			<Text className="text-base text-gray-500  mb-2 font-pmedium">
 				{title}
 			</Text>
 
 			<View
-				className={`w-full h-16 px-4 bg-black-100 rounded-2xl border  border-gray-100  focus:border-secondary flex flex-row items-center ${borderStyle} `}
+				className={`w-full h-16 px-4 bg-black-100 rounded-2xl border  border-gray-300  focus:border-slate-500 flex flex-row items-center ${borderStyle} `}
 			>
 				<TextInput
-					className="flex-1 text-white font-psemibold text-base"
+					className="flex-1 text-slate-500 font-psemibold text-base"
 					value={value}
 					placeholder={placeholder}
 					placeholderTextColor="#7B7B8B"
