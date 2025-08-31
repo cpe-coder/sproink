@@ -1,3 +1,4 @@
+import atsign from "@/assets/icon/at-sign.png";
 import eyeClose from "@/assets/icon/eye-hide.png";
 import eye from "@/assets/icon/eye.png";
 import home from "@/assets/icon/home.png";
@@ -12,4 +13,5 @@ export const icon = {
 	home,
 	settings,
 	logo,
+	atsign,
 };

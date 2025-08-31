@@ -1,13 +1,13 @@
 import { icon } from "@/constant/icon";
 import { useAuth } from "@/context/auth-context";
 import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
 	launchImageLibraryAsync,
 	useMediaLibraryPermissions,
 } from "expo-image-picker";
 import * as SecureStore from "expo-secure-store";
-import { AtSign } from "lucide-react-native";
 import React from "react";
 import {
 	Image,
@@ -82,12 +82,9 @@ const Settings = () => {
 							{userData ? userData.name : "Sproink User"}
 						</Text>
 					</View>
-					<Pressable
-						onPress={() => console.log("clicked")}
-						className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300"
-					>
+					<Pressable className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300">
 						<View className="bg-red-500 rounded-full p-3">
-							<AtSign size={20} color={"white"} />
+							<Feather name="at-sign" size={24} color="white" />
 						</View>
 						<View>
 							<Text className=" text-lg text-slate-500">User Email</Text>
@@ -96,6 +93,7 @@ const Settings = () => {
 							</Text>
 						</View>
 					</Pressable>
+
 					<View className="py-2">
 						<Pressable
 							onPress={() => chooseFromLibrary()}
