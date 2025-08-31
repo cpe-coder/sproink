@@ -7,6 +7,7 @@ import {
 	useMediaLibraryPermissions,
 } from "expo-image-picker";
 import * as SecureStore from "expo-secure-store";
+import { AtSign } from "lucide-react-native";
 import React from "react";
 import {
 	Image,
@@ -86,7 +87,7 @@ const Settings = () => {
 						className="flex-row px-4 py-2 justify-start items-center gap-5 active:bg-gray-300/20 transition-all duration-300 active:transition-all active:duration-300"
 					>
 						<View className="bg-red-500 rounded-full p-3">
-							{/* <AtSign size={20} color={"white"} /> */}
+							<AtSign size={20} color={"white"} />
 						</View>
 						<View>
 							<Text className=" text-lg text-slate-500">User Email</Text>
