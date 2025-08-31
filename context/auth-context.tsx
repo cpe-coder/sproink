@@ -108,7 +108,6 @@ export const AuthProvider = ({ children }: any) => {
 			token: result.data.token,
 			authenticated: true,
 		});
-		console.log("hello");
 		axios.defaults.headers.common["Authorization"] =
 			`Bearer ${result.data.token}`;
 		await SecureStore.setItemAsync(TOKEN_KEY, result.data.token);
