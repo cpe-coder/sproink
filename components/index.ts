@@ -4,6 +4,7 @@ import DrawerIcon from "./drawer-icon";
 import InputField from "./input-field";
 import Loading from "./loading";
 import Logout from "./logout";
+import Monitors from "./monitors";
 import ProfileInfo from "./profile-info";
 import Settings from "./settings";
 
@@ -14,6 +15,7 @@ export {
 	InputField,
 	Loading,
 	Logout,
+	Monitors,
 	ProfileInfo,
 	Settings,
 };

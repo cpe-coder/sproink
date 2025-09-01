@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { TimerPickerModal } from "react-native-timer-picker";
+import Monitors from "./monitors";
 
 type TimerType = "water" | "pesticides" | "fertilizer";
 
@@ -207,16 +208,7 @@ const Controls = () => {
 				</Text>
 			</View>
 			<Text className="font-medium text-slate-500 text-lg">Monitor</Text>
-			<View className=" flex flex-row justify-around items-center rounded-md w-full px-4 bg-slate-300 py-4">
-				<View className="items-center">
-					<Text className="font-medium text-base">Temperature</Text>
-					<Text className="font-bold text-4xl">20%</Text>
-				</View>
-				<View className="items-center">
-					<Text className="font-medium text-base">Humidity</Text>
-					<Text className="font-bold text-4xl">30%</Text>
-				</View>
-			</View>
+			<Monitors />
 			<View className="flex py-10 items-center">
 				<Text className="text-sm text-slate-400 italic mt-2">
 					Reminder: Don&apos;t close the app while a timer is running.
