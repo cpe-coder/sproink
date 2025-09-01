@@ -1,3 +1,5 @@
+import database from "@/lib/firebase.config";
+import { ref, set } from "firebase/database";
 import React, { useEffect, useRef, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { TimerPickerModal } from "react-native-timer-picker";
@@ -108,6 +110,43 @@ const Controls = () => {
 
 	const handleCancel = () => {
 		setActiveTimer(null);
+	};
+
+	useEffect(() => {
+		setWaterRunningValue();
+		setPesticidesRunningValue();
+		setFertilizerRunningValue();
+	});
+
+	const setWaterRunningValue = async () => {
+		const setValueRef = ref(database, "controls/waterRunning");
+		if (waterRunning && waterSeconds !== null && waterSeconds > 0) {
+			return await set(setValueRef, true);
+		}
+		return await set(setValueRef, false);
+	};
+	const setPesticidesRunningValue = async () => {
+		const setValueRef = ref(database, "controls/pesticiedsRunning");
+		if (
+			pesticidesRunning &&
+			pesticidesSeconds !== null &&
+			pesticidesSeconds > 0
+		) {
+			return await set(setValueRef, true);
+		}
+
+		return await set(setValueRef, false);
+	};
+	const setFertilizerRunningValue = async () => {
+		const setValueRef = ref(database, "controls/fertilizerRunning");
+		if (
+			fertilizerRunning &&
+			fertilizerSeconds !== null &&
+			fertilizerSeconds > 0
+		) {
+			return await set(setValueRef, true);
+		}
+		return await set(setValueRef, false);
 	};
 
 	return (
