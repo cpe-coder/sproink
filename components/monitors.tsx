@@ -38,9 +38,9 @@ const Monitors = () => {
 					<View className="flex flex-row items-center">
 						<View
 							style={{ width: temperature * 2.8 }}
-							className={`h-6 rounded-md ${getBarColor(temperature)}`}
+							className={`h-6 rounded-sm ${getBarColor(temperature)}`}
 						></View>
-						<View className="h-6 w-1 bg-slate-500 rounded-md"></View>
+						<View className="h-8 w-0.5 bg-slate-500 rounded-sm"></View>
 					</View>
 				</View>
 			</View>
@@ -52,9 +52,9 @@ const Monitors = () => {
 					<View className="flex flex-row items-center">
 						<View
 							style={{ width: humidity * 2.8 }}
-							className={`h-6 rounded-md ${getBarColor(humidity)}`}
+							className={`h-6 rounded-sm ${getBarColor(humidity)}`}
 						></View>
-						<View className="h-6 w-1 bg-slate-500 rounded-md"></View>
+						<View className="h-8 w-0.5 bg-slate-500 rounded-sm"></View>
 					</View>
 				</View>
 			</View>
@@ -67,9 +67,9 @@ const Monitors = () => {
 						<View className="flex flex-row items-center">
 							<View
 								style={{ width: soil * 2.8 }}
-								className={`h-6 rounded-md ${getBarColor(soil)}`}
+								className={`h-6 rounded-sm ${getBarColor(soil)}`}
 							></View>
-							<View className="h-6 w-1 bg-slate-500 rounded-md"></View>
+							<View className="h-8 w-0.5 bg-slate-500 rounded-sm"></View>
 						</View>
 					</View>
 				</View>
