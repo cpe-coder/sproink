@@ -27,7 +27,7 @@ export default function TabLayout() {
 				<Stack.Screen
 					name="Home"
 					options={{
-						title: "Home",
+						title: "Sproink",
 						headerStyle: {
 							backgroundColor: "#64748b",
 						},
