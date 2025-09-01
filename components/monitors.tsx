@@ -1,3 +1,5 @@
+import database from "@/lib/firebase.config";
+import { onValue, ref } from "firebase/database";
 import React from "react";
 import { Text, View } from "react-native";
 
@@ -12,20 +14,39 @@ const Monitors = () => {
 		return "bg-red-500";
 	};
 
-	const fetchData = () => {
-		setTemperature(Math.floor(Math.random() * 100));
-		setHumidity(Math.floor(Math.random() * 100));
-		setSoil(Math.floor(Math.random() * 100));
-	};
-
 	React.useEffect(() => {
-		fetchData();
-
-		const interval = setInterval(() => {
-			fetchData();
-		}, 5000);
-		return () => clearInterval(interval);
+		getTemperatureValue();
+		getHumidityValue();
+		getSoilValue();
 	}, []);
+
+	const getTemperatureValue = async () => {
+		const tempRef = ref(database, "sensors/temperature");
+		const subscribe = onValue(tempRef, (snapshot) => {
+			const data = snapshot.val();
+			setTemperature(data);
+		});
+
+		return () => subscribe();
+	};
+	const getHumidityValue = async () => {
+		const tempRef = ref(database, "sensors/humidity");
+		const subscribe = onValue(tempRef, (snapshot) => {
+			const data = snapshot.val();
+			setHumidity(data);
+		});
+
+		return () => subscribe();
+	};
+	const getSoilValue = async () => {
+		const tempRef = ref(database, "sensors/soil");
+		const subscribe = onValue(tempRef, (snapshot) => {
+			const data = snapshot.val();
+			setSoil(data);
+		});
+
+		return () => subscribe();
+	};
 
 	return (
 		<View className="gap-2 rounded-md w-full px-4 bg-slate-300 py-4">
