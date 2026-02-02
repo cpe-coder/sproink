@@ -8,7 +8,7 @@ interface AuthProps {
 		name: string,
 		email: string,
 		password: string,
-		confirmPassword: string
+		confirmPassword: string,
 	) => Promise<any>;
 	onLogin?: (name: string, email: string) => Promise<any>;
 	onLogout?: () => Promise<any>;
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: any) => {
 		name: string,
 		email: string,
 		password: string,
-		confirmPassword: string
+		confirmPassword: string,
 	) => {
 		return await axios.post(`${API_URL}/api/auth/register`, {
 			name,

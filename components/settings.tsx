@@ -65,7 +65,7 @@ const Settings = () => {
 				onRequestClose={() => setVisible(false)}
 				animationType="fade"
 			>
-				<View className=" bg-white w-screen h-screen">
+				<View className=" bg-white w-screen h-screen pt-8">
 					<View className="flex p-4 flex-row gap-2 items-center justify-start">
 						<Pressable onPress={() => setVisible(false)} className=" mr-5">
 							<Ionicons name="arrow-back" size={24} color="#334155" />
