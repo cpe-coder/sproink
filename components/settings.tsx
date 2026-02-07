@@ -1,3 +1,4 @@
+import { developers } from "@/constant/developers";
 import { icon } from "@/constant/icon";
 import { useAuth } from "@/context/auth-context";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -106,6 +107,25 @@ const Settings = () => {
 								Change Profile Image
 							</Text>
 						</Pressable>
+					</View>
+					<View className="">
+						<Text className="text-lg text-slate-500 font-medium px-4 py-2 pt-8">
+							Developer&apos;s Team
+						</Text>
+						{developers.map((dev) => (
+							<View
+								key={dev.name}
+								className="flex-row items-center p-2 bg-white gap-2 px-8 rounded-lg shadow"
+							>
+								<Image source={dev.image} className="w-12 h-12 rounded-full" />
+
+								<View className="flex-1">
+									<Text className="text-sm text-gray-400 font-medium">
+										{dev.name}
+									</Text>
+								</View>
+							</View>
+						))}
 					</View>
 					<View className="flex-1 justify-end bottom-20 items-center">
 						<TouchableOpacity onPress={onLogout} className="">

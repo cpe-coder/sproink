@@ -12,15 +12,16 @@ const Controls = () => {
 
 	const [waterSeconds, setWaterSeconds] = useState<number | null>(null);
 	const [pesticidesSeconds, setPesticidesSeconds] = useState<number | null>(
-		null
+		null,
 	);
 	const [fertilizerSeconds, setFertilizerSeconds] = useState<number | null>(
-		null
+		null,
 	);
 
 	const [waterRunning, setWaterRunning] = useState(false);
 	const [pesticidesRunning, setPesticidesRunning] = useState(false);
 	const [fertilizerRunning, setFertilizerRunning] = useState(false);
+	const [isCanceling, setIsCanceling] = useState(false);
 
 	const waterRef = useRef<ReturnType<typeof setInterval> | null>(null);
 	const pesticidesRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -34,6 +35,24 @@ const Controls = () => {
 			.toString()
 			.padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 	};
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		setPumpRunningValue();
+
+		if (isCanceling) {
+			waterRef.current && clearInterval(waterRef.current);
+			pesticidesRef.current && clearInterval(pesticidesRef.current);
+			fertilizerRef.current && clearInterval(fertilizerRef.current);
+			setWaterSeconds(null);
+			setPesticidesSeconds(null);
+			setFertilizerSeconds(null);
+			setWaterRunning(false);
+			setPesticidesRunning(false);
+			setFertilizerRunning(false);
+			setIsCanceling(false);
+		}
+	});
 
 	useEffect(() => {
 		if (waterRunning && waterSeconds !== null && waterSeconds > 0) {
@@ -118,13 +137,32 @@ const Controls = () => {
 		setFertilizerRunningValue();
 	});
 
+	const setPumpRunningValue = async () => {
+		const setValueRef = ref(database, "controls/pumpRunning");
+		if (
+			(waterRunning && waterSeconds !== null && waterSeconds > 0) ||
+			(pesticidesRunning &&
+				pesticidesSeconds !== null &&
+				pesticidesSeconds > 0) ||
+			(fertilizerRunning &&
+				fertilizerSeconds !== null &&
+				fertilizerSeconds > 0) ||
+			(fertilizerRunning && fertilizerSeconds !== null && fertilizerSeconds > 0)
+		) {
+			return await set(setValueRef, true);
+		}
+		return await set(setValueRef, false);
+	};
+
 	const setWaterRunningValue = async () => {
 		const setValueRef = ref(database, "controls/waterRunning");
+
 		if (waterRunning && waterSeconds !== null && waterSeconds > 0) {
 			return await set(setValueRef, true);
 		}
 		return await set(setValueRef, false);
 	};
+
 	const setPesticidesRunningValue = async () => {
 		const setValueRef = ref(database, "controls/pesticiedsRunning");
 		if (
@@ -137,6 +175,7 @@ const Controls = () => {
 
 		return await set(setValueRef, false);
 	};
+
 	const setFertilizerRunningValue = async () => {
 		const setValueRef = ref(database, "controls/fertilizerRunning");
 		if (
@@ -147,6 +186,10 @@ const Controls = () => {
 			return await set(setValueRef, true);
 		}
 		return await set(setValueRef, false);
+	};
+
+	const cancelTimer = () => {
+		setIsCanceling(true);
 	};
 
 	return (
@@ -168,7 +211,7 @@ const Controls = () => {
 					}`}
 				>
 					{formatSeconds(
-						waterSeconds || pesticidesSeconds || fertilizerSeconds || 0
+						waterSeconds || pesticidesSeconds || fertilizerSeconds || 0,
 					)}
 				</Text>
 			) : (
@@ -226,6 +269,26 @@ const Controls = () => {
 				>
 					<Text className="text-slate-50 font-medium">Fertilizer</Text>
 				</TouchableOpacity>
+			</View>
+			<View>
+				{(waterRunning && waterSeconds !== null && waterSeconds > 0) ||
+				(pesticidesRef &&
+					pesticidesSeconds !== null &&
+					pesticidesSeconds > 0) ||
+				(fertilizerRef &&
+					fertilizerSeconds !== null &&
+					fertilizerSeconds > 0) ? (
+					<TouchableOpacity
+						onPress={cancelTimer}
+						className="bg-red-500 p-2 mt-2 rounded-md"
+					>
+						<Text className="text-white font-medium text-sm text-center">
+							Cancel
+						</Text>
+					</TouchableOpacity>
+				) : (
+					""
+				)}
 			</View>
 			<View className="flex items-center mb-6">
 				<Text className="text-lg text-red-400 italic">
